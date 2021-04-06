@@ -21,6 +21,17 @@ app.get('/about', (req, res) => {
     res.sendFile('./views/about.html',{root:__dirname});  
 });
 
+//route with request parameters --usually used in REST
+app.get('/find/:id',(req, res) => {
+    const name = req.params.id;
+    res.send("Are you looking for "+name);
+});
+
+app.get('/find', (req, res) => {
+    const tag = req.query.name;
+    res.send('Finding '+tag+'...' );
+});
+
 app.get('/home', (req, res) => {
     res.sendFile('./views/index.html', {root:__dirname});
 });
