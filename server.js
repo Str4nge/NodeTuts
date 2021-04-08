@@ -53,6 +53,7 @@ app.get('/about', (req, res) => {
     res.render('about',{title:"About Page"});
 });
 
+//finding the data from the database and sending to the view 
 app.get('/blogs', (req, res) => {
     Blog.find().sort({createdAt:-1})
     .then((result) => res.render('index',{title: 'All Blogs', blogs: result}) )

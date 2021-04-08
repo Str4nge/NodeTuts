@@ -23,7 +23,7 @@
     <% if (blogs.length > 0) {
         blogs.forEach( (blog) => { %>
             <h3 class="title"><%= blog.title %></h3>
-            <cite class="snippet"> <%=blog.author %> </cite>
+            <cite class="snippet"> - <%=blog.author %> </cite>
             <p class="snippet"><%= blog.body %></p>
 
       <%  });
