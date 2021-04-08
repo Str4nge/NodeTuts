@@ -35,6 +35,7 @@ app.get('/', (req, res) =>{
         {title:'who was been messing up everything?', body:'It`s been AGATHA all along'},
         {title:'who was been pulling every evil string?', body:'It`s been AGATHA all along'},
         {title:'It`s too late to fix anything', body:'Now that everything has gone wrong'},
+        {title:'Why should you watch Konjiki No Gash!',body:'The greatest reason is Kiyo Takamine and his answer talker ability. A 14-year-old child will be so fascinated by his problem-solving abilities. Please do take into consideration that it is only applicable to normal children, not rational thinkers. '}
         ];
 
     res.render('index',{title:"Home Page", blogs:blogs});
