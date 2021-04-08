@@ -1,18 +1,25 @@
 const express = require('express');
+const mongoose = require('mongoose'); //used database management
+const Blog = require('./models/blog');
 
 //express app
 const app = express();
+
+//connecting to MongoDB atlas connection string
+const dbURI = 'mongodb+srv://kyodaina:vishal@nodetuts.5vqll.mongodb.net/Node-tuts?retryWrites=true&w=majority';
+mongoose.connect(dbURI,{ useNewUrlParser: true, useUnifiedTopology:true } ) //then part will run after the async func is completed
+.then((result) => {
+    console.log('connected to database');               //here we are listening after the connection to the database is made.
+    app.listen(4000, () => {
+        console.log('Server started at 4000');
+    });
+}).catch((err) => console.log(err)) ;
 
 //registering view engine
 app.set('view engine', 'ejs');
 // it takes the default view model is in views directory. To specify any other folder for view 
 //you can specify in app.set('views', 'viewDirectory');
 
-
-//server listen to port 4000
-app.listen(4000, () => {
-    console.log('Server started at 4000');
-});
 
 //middelware for static files.
 //by default any file can not be served by the express app. to make available any static file
@@ -31,25 +38,31 @@ app.use((req, res, next) => {
 //get method responding to a '/' url route
 //Here we are just rendering the view inside Get
 app.get('/', (req, res) =>{
-
     //sending data objects along with rendering.
-    const blogs = [
-        {title:'who was been messing up everything?', body:'It`s been AGATHA all along'},
-        {title:'who was been pulling every evil string?', body:'It`s been AGATHA all along'},
-        {title:'It`s too late to fix anything', body:'Now that everything has gone wrong'},
-        {title:'Why should you watch Konjiki No Gash!',body:'The greatest reason is Kiyo Takamine and his answer talker ability. A 14-year-old child will be so fascinated by his problem-solving abilities. Please do take into consideration that it is only applicable to normal children, not rational thinkers. '}
-        ];
+    // const blogs = [
+    //     {title:'who was been messing up everything?', body:'It`s been AGATHA all along'},
+    //     {title:'who was been pulling every evil string?', body:'It`s been AGATHA all along'},
+    //     {title:'It`s too late to fix anything', body:'Now that everything has gone wrong'},
+    //     ];
 
-    res.render('index',{title:"Home Page", blogs:blogs});
+    // res.render('index',{title:"Home Page", blogs:blogs});
+    res.redirect('/blogs');
 });
 
 app.get('/about', (req, res) => {
     res.render('about',{title:"About Page"});
 });
 
+//finding the data from the database and sending to the view 
+app.get('/blogs', (req, res) => {
+    Blog.find().sort({createdAt:-1})
+    .then((result) => res.render('index',{title: 'All Blogs', blogs: result}) )
+    .catch((err) => console.log(err));
+});
+ 
 app.get('/blogs/create', (req, res) => {
     res.render('createBlog',{title:"Create New Page"});
-})
+});
 
 //if any of the routes in get method doesnot matches to the url this middleware runs
 //error page
