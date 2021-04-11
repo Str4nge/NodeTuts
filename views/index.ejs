@@ -1,0 +1,37 @@
+<!--This is a simple view using basic HTML-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs'); %>
+<body>
+    <nav>
+        <div class="site-title">
+            <a href="/"><h1>Blog Bento</h1></a>
+            <p>The action of burping is called <u>Eructation</u>.</p>
+        </div>
+        <ul>
+            <li><a href="/">Blogs</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blogs/create">New Blog</a></li>
+        </ul>
+    </nav>
+
+    <div class="blogs content">
+        <h2>All Blogs</h2>
+    <hr>
+    <% if (blogs.length > 0) {
+        blogs.forEach( (blog) => { %>
+            <a href="/blogs/<%= blog._id %> ">   <!-- when clicked on the title, the link will request the blog using its id-->
+            <h3 class="title"><%= blog.title %></h3>
+            <cite class="snippet"> - <%=blog.author %> </cite>
+            <p class="snippet"><%= blog.body %></p> </a>
+
+      <%  });
+    }else{ %>
+        <p>There are no blogs.</p>
+    <%} %>
+    
+    <%- include('./partials/footer.ejs'); %>
+    </div>
+</body>
+</html>
