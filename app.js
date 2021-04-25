@@ -61,7 +61,10 @@ app.get('/blogs', (req, res) => {
 app.get('/blogs/:id', (req, res) => {
     Blog.findById(req.params.id)
     .then( (result) => res.render('blogDetail',{title:"Blog detail", blog:result}) )
-    .catch( (err) => console.log(err) ); 
+    .catch( (err) => {
+        res.render('error', { title:"Blog not found"});
+        console.log(err);
+    } ); 
 });
 
 app.delete('/blogs/:id', (req, res) => {
@@ -80,7 +83,7 @@ app.post('/blogs', (req, res) =>{
     .catch( (err) => console.log(err) );
 });
  
-app.get('/blogs/create', (req, res) => {
+app.get('/blog/create', (req, res) => {
     res.render('createBlog',{title:"Create New Page"});
 });
 

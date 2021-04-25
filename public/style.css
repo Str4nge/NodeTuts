@@ -109,12 +109,27 @@ textarea{
     /* position: absolute;
     top: 0;
     right: 0; */
-    border-radius: 50%;
+    border-radius: 0 5px 5px 0;
     padding: 8px;
+    margin-left: 20px;
+    border-left: 5px solid #dc143c;
 }
 
+.back{
+    border-radius: 0 5px 5px 0;
+    margin-left: 20px;
+    border-left: 5px solid #483d8b ;
+    padding: 8px;
+}
+.back:hover{
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 1px 2px 3px #0004;
+    color:#483d8b;
+}
 .delete:hover{
     cursor: pointer;
+    border-radius: 5px ;
     box-shadow: 1px 2px 3px #0004;
     color: #dc143c;
 }
